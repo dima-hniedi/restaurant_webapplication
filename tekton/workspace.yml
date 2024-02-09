@@ -1,0 +1,8 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Workspace
+metadata:
+  name: workspace   
+spec:
+  description: "Workspace for storing files used in tasks"
+  persistentVolumeClaim:
+    claimName: my-pvc   
