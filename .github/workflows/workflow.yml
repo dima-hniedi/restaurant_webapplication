@@ -1,32 +1,29 @@
-name: Flake8 Lint
+name: Python Code Quality and Testing
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
-  lint:
-    name: Lint with Flake8
+  build:
+
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Set up Python
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.x
       uses: actions/setup-python@v2
       with:
         python-version: '3.x'
-
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install flake8
-
-    - name: Run Flake8
+        pip install -r requirements.txt
+    - name: Run unit tests with nose
       run: |
-        flake8 .
+        nosetests
+    - name: Lint with Flake8
+      run: |
+        flake8
